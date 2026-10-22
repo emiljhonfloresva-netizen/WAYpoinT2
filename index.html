@@ -14,7 +14,7 @@
 <div class="app"><aside>
 <div class="brand"><span class="brand-icon">↗</span>Waypoint<span style="color:#a6b596">.</span></div><div class="nav-label">Your workspace</div>
 <nav class="nav" aria-label="Main navigation"><button class="active" data-page="overview"><span>◫</span>Overview</button><button data-page="calendar"><span>▦</span>Calendar</button><button data-page="summary"><span>☷</span>Plan summaries</button><button data-page="email"><span>✉</span>Email studio</button></nav>
-<div class="aside-bottom"><div class="storage-note"><strong>A little room to plan.</strong>Your plans are stored securely in the cloud. Export a backup to keep a portable copy.</div><button id="backupBtn">↓ Export backup</button><button id="restoreBtn">↑ Restore backup</button><button id="sampleBtn">＋ Load sample workspace</button></div></aside>
+<div class="aside-bottom"><div class="storage-note"><strong>A little room to plan.</strong>Your plans are stored in the cloud. Export a backup to keep a portable copy.</div><button id="backupBtn">↓ Export backup</button><button id="restoreBtn">↑ Restore backup</button><button id="sampleBtn">＋ Load sample workspace</button></div></aside>
 <main><div class="topline"><span class="eyebrow">Personal operations / Travel & life</span><div class="top-actions"><span class="date-chip" id="todayLabel"></span><button id="mobileBackup">↓ Backup</button><button id="mobileRestore">↑ Restore</button></div></div>
 <div class="intro"><div><h1 id="pageTitle">Good plans. Clear days.</h1><p id="pageDescription">Your calendar, your travel, and all the details in between.</p></div><button class="primary" id="newBtn">＋ New event</button></div>
 <div id="demoBanner" class="demo-banner" hidden><span><b>Sample workspace</b> · Explore with example plans, then start your own.</span><button class="small" id="freshBtn">Start empty</button></div>
@@ -22,7 +22,7 @@
 <section id="overviewPage" class="page-section"><div class="workspace"><div class="panel"><div class="panel-head"><h2>Your itinerary, at a glance</h2><button class="small" data-goto="calendar">Open calendar ↗</button></div><div id="overviewList" class="list-wrap"></div></div><div class="right-rail"><div class="panel side-panel" id="nextPanel"></div><div class="note-box"><strong>Everything has its place.</strong>Keep flight segments, stays, ground transport, confirmations, and to-dos inside each plan.</div></div></div></section>
 <section id="calendarPage" class="page-section" hidden><div class="panel"><div class="panel-head"><div class="segment"><button class="selected" id="monthViewBtn">Calendar</button><button id="agendaViewBtn">Agenda</button></div><button class="small" id="pdfBtn">↓ Download monthly PDF</button></div><div class="toolbar"><div class="month-controls"><button id="prevMonth" aria-label="Previous month">‹</button><strong id="monthLabel"></strong><button id="nextMonth" aria-label="Next month">›</button><button class="small" id="todayBtn">Today</button></div><div class="filters"><input id="calendarSearch" placeholder="Search plans…" aria-label="Search calendar"><select id="calendarType" aria-label="Filter event type"><option value="">All types</option><option>Trip</option><option>Meeting</option><option>Personal</option><option>Other</option></select></div></div><div class="zone-bar"><label>Calendar time zone <input id="calendarZone" list="zones" aria-label="Calendar display time zone" autocomplete="off"></label><button class="small" id="useLocalZone">Use my time zone</button><span id="calendarZoneInfo" class="zone-caption"></span></div><div class="world-clocks" id="worldClocks" aria-label="World clocks"></div><div id="calendarBody"></div><div class="legend"><span><i class="dot"></i>Trip</span><span><i class="dot" style="background:#8ba6ce"></i>Meeting</span><span><i class="dot" style="background:#ae91c6"></i>Personal</span><span><i class="dot" style="background:#c5a174"></i>Other</span><span style="margin-left:auto">Calendar display zone · Monday start</span></div></div></section>
 <section id="summaryPage" class="page-section" hidden><div class="panel"><div class="panel-head"><h2>Plan summaries</h2><span class="muted tiny">All dates, all the details</span></div><div class="toolbar"><div class="filters"><input id="summarySearch" placeholder="Search all plans…" aria-label="Search summaries"><select id="summaryType" aria-label="Filter summaries"><option value="">All types</option><option>Trip</option><option>Meeting</option><option>Personal</option><option>Other</option></select></div><select id="summaryWhen" style="width:150px;font-size:12px" aria-label="Filter by time"><option value="all">All plans</option><option value="upcoming">Today & upcoming</option><option value="past">Past plans</option></select></div><div id="summaryBody" class="summary-grid"></div></div></section>
-<section id="emailPage" class="page-section" hidden><div class="email-layout"><div class="panel email-settings"><h2>A clear plan, ready to share.</h2><p class="muted" style="font-size:12px">Generate an editable summary from your saved event details.</p><label>Event<select id="emailEvent"></select></label><label>Greeting / recipient name<input id="emailRecipient" placeholder="e.g. Alex or Team" maxlength="120"></label><label>Style<select id="emailStyle"><option value="detailed">Detailed itinerary</option><option value="brief">Brief overview</option><option value="action">Action-focused update</option></select></label><label>Sign-off name<input id="emailSender" placeholder="Your name" maxlength="120"></label><button class="primary" id="generateEmail" style="width:100%">Generate email ↗</button><p class="footer-note">Generated locally from your entries. Review before sharing. Regenerating replaces your draft.</p></div><div class="panel email-preview"><div class="actions" style="justify-content:space-between;margin-bottom:22px"><span class="eyebrow">Email draft</span><button class="small" id="copyEmail">Copy email</button></div><label for="emailSubject">Subject</label><input id="emailSubject" placeholder="Select an event to get started"><label for="emailBody">Message</label><textarea id="emailBody" placeholder="Your generated event summary will appear here. You can edit every word."></textarea></div></div></section>
+<section id="emailPage" class="page-section" hidden><div class="email-layout"><div class="panel email-settings"><h2>A clear plan, ready to share.</h2><p class="muted" style="font-size:12px">Generate an editable summary from your saved event details.</p><label>Event<select id="emailEvent"></select></label><label>Greeting / recipient name<input id="emailRecipient" placeholder="e.g. Alex or Team" maxlength="120"></label><label>Style<select id="emailStyle"><option value="detailed">Detailed itinerary</option><option value="brief">Brief overview</option><option value="action">Action-focused update</option></select></label><label>Sign-off name<input id="emailSender" placeholder="Your name" maxlength="120"></label><button class="primary" id="generateEmail" style="width:100%">Generate email ↗</button><p class="footer-note">Generated from your saved entries. Review before sharing. Regenerating replaces your draft.</p></div><div class="panel email-preview"><div class="actions" style="justify-content:space-between;margin-bottom:22px"><span class="eyebrow">Email draft</span><button class="small" id="copyEmail">Copy email</button></div><label for="emailSubject">Subject</label><input id="emailSubject" placeholder="Select an event to get started"><label for="emailBody">Message</label><textarea id="emailBody" placeholder="Your generated event summary will appear here. You can edit every word."></textarea></div></div></section>
 <p class="footer-note">Cloud workspace · No calendar, booking, or email account connection · Export backups regularly.</p></main></div>
 <dialog id="editor"><form id="eventForm"><div class="dialog-header"><h2 id="editorTitle">Make room for a new plan.</h2><button type="button" class="close" data-close="editor" aria-label="Close event editor">×</button></div><div class="dialog-body"><div class="section-label">01 / The essentials</div><div class="form-grid">
 <label class="full">Event title *<input name="title" required maxlength="180" placeholder="e.g. Singapore leadership offsite"></label><label>Type<select name="type"><option>Trip</option><option>Meeting</option><option>Personal</option><option>Other</option></select></label><label>Plan status<select name="status"><option>Planning</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option></select></label><label>From *<input name="start" type="datetime-local" required></label><label>To *<input name="end" type="datetime-local" required></label><label>Start time zone *<input name="zone" required list="zones" placeholder="Search city or IANA time zone" maxlength="100"></label><label>End time zone *<input name="endZone" required list="zones" placeholder="Same as start, or choose destination" maxlength="100"></label><label>When clocks repeat for daylight saving<select name="disambiguation"><option value="earlier">First occurrence (earlier UTC time)</option><option value="later">Second occurrence (later UTC time)</option></select></label><label>Destination / venue<input name="location" placeholder="City, address, or meeting link" maxlength="500"></label><label>Travelers / attendees<input name="people" placeholder="Names, team, or organizer" maxlength="500"></label><label>Primary contact<input name="contact" placeholder="Name, phone, or email" maxlength="500"></label><label class="full">Purpose & operational notes<textarea name="notes" placeholder="Objectives, arrival instructions, accessibility, emergency contact…" maxlength="12000"></textarea></label></div>
@@ -35,12 +35,7 @@
 'use strict';
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const KEY='waypoint.operations.v1',uid=()=>globalThis.crypto?.randomUUID?.()||'w'+Date.now().toString(36)+Math.random().toString(36).slice(2),localZone=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC',pad=n=>String(n).padStart(2,'0');
-const SUPABASE_URL='https://lrjqpmryrclytnnkbnbo.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY='sb_publishable_BbNJEcXZVB-qz_6HubwlMA_zsavf54g';
-const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-function accessToken(){try{const raw=location.hash.replace(/^#\?/,'');return new URLSearchParams(raw).get('access')||''}catch{return ''}}
-const WORKSPACE_TOKEN=accessToken();
+const KEY='waypoint.operations.v1',WORKSPACE_KEY='default',SUPABASE_URL='https://lrjqpmryrclytnnkbnbo.supabase.co',SUPABASE_PUBLISHABLE_KEY='sb_publishable_BbNJEcXZVB-qz_6HubwlMA_zsavf54g',supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY),uid=()=>globalThis.crypto?.randomUUID?.()||'w'+Date.now().toString(36)+Math.random().toString(36).slice(2),localZone=Intl.DateTimeFormat().resolvedOptions().timeZone||'UTC',pad=n=>String(n).padStart(2,'0');
 const dateKey=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 const parseDate=s=>{const [y,m,d]=s.slice(0,10).split('-').map(Number);return new Date(y,m-1,d,12)};
 const dateLabel=s=>parseDate(s).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
@@ -56,48 +51,7 @@ transport:[['provider','Provider'],['mode','Mode (rail, transfer, ferry…)'],['
 };
 let state={events:[],demo:false},page='overview',month=new Date(),calendarMode='month',editingId=null,detailId=null,toastTimer;month=new Date(month.getFullYear(),month.getMonth(),1,12);
 function notify(msg){$('#toast').textContent=msg;$('#toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').hidden=true,4800)}
-function localState(){try{const saved=localStorage.getItem(KEY);return saved?validateBackup(JSON.parse(saved)):null}catch{return null}}
-async function save(){
-  if(!WORKSPACE_TOKEN){notify('This Waypoint link is missing its access token.');return false}
-  try{
-    const {data,error}=await supabaseClient.rpc('waypoint_save',{p_access_token:WORKSPACE_TOKEN,p_events:state.events,p_settings:state.settings||{},p_demo:state.demo===true});
-    if(error)throw error;
-    if(data!==true)throw Error('Waypoint access token was rejected.');
-    return true;
-  }catch(e){console.error(e);notify('Could not save to the cloud. Your latest changes remain on this page.');return false}
-}
-async function loadCloud(){
-  if(!WORKSPACE_TOKEN)throw Error('This Waypoint link is missing its access token.');
-  const {data,error}=await supabaseClient.rpc('waypoint_load',{p_access_token:WORKSPACE_TOKEN});
-  if(error)throw error;
-  if(!Array.isArray(data)||!data.length)throw Error('This Waypoint link is invalid or expired.');
-  return validateBackup({events:data[0].events||[],settings:data[0].settings||{},demo:data[0].demo===true});
-}
-async function initWorkspace(){
-  if(!WORKSPACE_TOKEN){
-    state={events:[],demo:false,settings:{calendarZone:localZone}};
-    notify('This Waypoint link is missing its access token.');
-    return;
-  }
-  try{
-    const cloud=await loadCloud();
-    const local=localState();
-    const cloudEmpty=cloud.events.length===0;
-    if(cloudEmpty&&local&&local.events.length){
-      const migrate=confirm(`This browser has ${local.events.length} saved plan(s) that are not in the cloud yet. Move them to this Waypoint workspace?`);
-      if(migrate){
-        state=local;
-        const ok=await save();
-        if(ok){try{localStorage.removeItem(KEY)}catch{};notify('Existing browser data migrated to the cloud.')} else state=cloud;
-      }else state=cloud;
-    }else state=cloud;
-  }catch(e){
-    console.error(e);
-    const local=localState();
-    state=local||{events:[],demo:false,settings:{calendarZone:localZone}};
-    notify('Could not load the cloud workspace. Check the private Waypoint link and Supabase connection.');
-  }
-}
+async function save(){try{const {error}=await supabaseClient.from('waypoint_cloud').update({events:state.events,settings:state.settings||{},demo:state.demo===true,updated_at:new Date().toISOString()}).eq('workspace_key',WORKSPACE_KEY);if(error)throw error;return true}catch(e){console.error('Supabase save failed:',e);notify('Could not save to the cloud. Your current changes remain on this page.');return false}}
 function nowIn(zone){try{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(x=>[x.type,x.value]));return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`}catch{return dateKey(new Date())+'T'+pad(new Date().getHours())+':'+pad(new Date().getMinutes())}}
 const active=e=>e.status!=='Cancelled'&&e.status!=='Completed'&&instant(e.end,e.endZone||e.zone,e.disambiguation)>=Date.now(),sorted=a=>[...a].sort((a,b)=>instant(a.start,a.zone,a.disambiguation)-instant(b.start,b.zone,b.disambiguation)),upcoming=()=>sorted(state.events.filter(active)),itemCount=e=>(e.items||[]).length,openTasks=e=>(e.tasks||[]).filter(t=>!t.done).length,range=e=>Number.isFinite(e._startInstant)?`${labelAt(e._startInstant,e.zone)} → ${labelAt(e._endInstant,e.zone)}`:`${zonedLabel(e.start,e.zone,e.disambiguation)} → ${zonedLabel(e.end,e.endZone||e.zone,e.disambiguation)}`,badge=e=>`<span class="badge ${e.type.toLowerCase()}">${esc(e.type)}</span>`;
 function validZone(z){if(typeof z!=='string'||!z.trim())return false;try{new Intl.DateTimeFormat('en',{timeZone:z});return true}catch{return false}}
@@ -189,7 +143,7 @@ function updateWorldClocks(){
 }
 function setCalendarZone(zone){
  if(!validZone(zone)){notify('Choose a recognized city time zone using Browse.');$('#calendarZone').value=viewerZone();return}
- state.settings={...(state.settings||{}),calendarZone:zone};$('#calendarZone').value=zone;save();renderCalendar();updateWorldClocks();
+ state.settings={...(state.settings||{}),calendarZone:zone};$('#calendarZone').value=zone;void save();renderCalendar();updateWorldClocks();
 }
 function updateZonePreview(){
  const f=$('#eventForm'),start=f.elements.start.value,end=f.elements.end.value,zone=f.elements.zone.value,to=f.elements.endZone.value,policy=f.elements.disambiguation.value;
@@ -228,7 +182,49 @@ function validateBackup(raw){
  out.items=(e.items||[]).map(it=>{if(!it||!Object.hasOwn(schemas,it.kind))throw Error('Unknown travel item type.');const o={kind:it.kind,status:['Pending','Confirmed','Cancelled'].includes(it.status)?it.status:'Pending'};schemas[it.kind].forEach(([k,label,type])=>{o[k]=text(it[k]);if(type==='datetime-local'&&o[k]&&!dt(o[k]))throw Error('A travel item contains an invalid date.');if(type==='number'&&o[k]&&(!Number.isFinite(+o[k])||+o[k]<0))throw Error('Invalid travel cost.');});validateItemTimes(o,out);return o;});
  if(e.tasks!==undefined&&!Array.isArray(e.tasks))throw Error('Invalid checklist.');if((e.tasks||[]).length>500)throw Error('Too many tasks in one plan.');out.tasks=(e.tasks||[]).filter(t=>t&&typeof t.text==='string'&&t.text.trim()).map(t=>({text:text(t.text,1000),done:t.done===true}));return out;});return {events,demo:raw.demo===true,settings:{calendarZone:validZone(raw.settings?.calendarZone)?raw.settings.calendarZone:localZone}};
 }
-state.settings={calendarZone:localZone,...(state.settings||{})};
+async function loadWorkspace(){
+ try{
+  const {data,error}=await supabaseClient.from('waypoint_cloud').select('events,settings,demo,updated_at').eq('workspace_key',WORKSPACE_KEY).maybeSingle();
+  if(error)throw error;
+  if(data){
+   const cloudState=validateBackup({events:data.events||[],settings:data.settings||{},demo:data.demo===true});
+   const saved=localStorage.getItem(KEY);
+   const cloudIsEmpty=!cloudState.events.length;
+   if(cloudIsEmpty&&saved){
+    try{
+     const migrated=validateBackup(JSON.parse(saved));
+     if(migrated.events.length||migrated.demo){
+      state=migrated;
+      state.settings={calendarZone:localZone,...(state.settings||{})};
+      const ok=await save();
+      if(ok)notify('Existing browser workspace migrated to the cloud.');
+      return;
+     }
+    }catch(migrationError){
+     console.warn('Existing browser workspace could not be migrated:',migrationError);
+    }
+   }
+   state=cloudState;
+   state.settings={calendarZone:localZone,...(state.settings||{})};
+   return;
+  }
+  const saved=localStorage.getItem(KEY);
+  if(saved){
+   const migrated=validateBackup(JSON.parse(saved));
+   state=migrated;
+   state.settings={calendarZone:localZone,...(state.settings||{})};
+   const ok=await save();
+   if(ok)notify('Existing browser workspace migrated to the cloud.');
+   return;
+  }
+  state={events:[],demo:false,settings:{calendarZone:localZone}};
+ }catch(e){
+  console.error('Supabase load failed:',e);
+  try{const saved=localStorage.getItem(KEY);state=saved?validateBackup(JSON.parse(saved)):sampleWorkspace()}catch{state={events:[],demo:false}}
+  state.settings={calendarZone:localZone,...(state.settings||{})};
+  notify('Cloud storage could not be loaded. Check your connection.');
+ }
+}
 $('#todayLabel').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
 function showPage(name){page=name;$$('.page-section').forEach(x=>x.hidden=x.id!==name+'Page');$$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===name));$('#stats').hidden=name==='email';const titles={overview:['Good plans. Clear days.','Your calendar, your travel, and all the details in between.'],calendar:['See the month ahead.','A little structure for everything on your horizon.'],summary:['Every plan, in perspective.','Bookings, preparation, and the details that keep things moving.'],email:['Keep everyone in the loop.','Turn your itinerary into a clear, ready-to-share email.']};$('#pageTitle').textContent=titles[name][0];$('#pageDescription').textContent=titles[name][1];render()}
 function render(){
@@ -261,13 +257,13 @@ $('#eventForm').addEventListener('submit',async ev=>{
  if(!e.title){notify('Give this plan a title.');return}if(!validZone(e.zone)||!validZone(e.endZone)){notify('Choose recognized start and end time zones using Browse.');return}try{const a=resolveWall(e.start,e.zone,e.disambiguation),b=resolveWall(e.end,e.endZone,e.disambiguation);if(b.ms<a.ms)throw Error('The end must follow the start after time-zone conversion.')}catch(err){notify(err.message);return}
  e.items=$$('#travelItems .repeat-card').map(card=>{const item={kind:card.dataset.kind};Array.from(card.querySelectorAll('[data-field]')).forEach(n=>item[n.dataset.field]=n.value.trim());if(item.currency)item.currency=item.currency.toUpperCase();return item});
  for(const item of e.items){try{validateItemTimes(item,e)}catch(err){notify(err.message);return}if(item.cost&&!item.currency){notify(`Add a currency for the ${labels[item.kind].toLowerCase()} cost.`);return}}
- e.tasks=$$('#taskItems .check-row').map(row=>({text:row.querySelector('input[type=text]').value.trim(),done:row.querySelector('input[type=checkbox]').checked})).filter(t=>t.text);const index=state.events.findIndex(x=>x.id===editingId);if(index>=0)state.events[index]=e;else state.events.push(e);const persisted=await save();$('#editor').close();render();notify(persisted?'Event saved.':'Event saved on this page, but cloud save failed.');
+ e.tasks=$$('#taskItems .check-row').map(row=>({text:row.querySelector('input[type=text]').value.trim(),done:row.querySelector('input[type=checkbox]').checked})).filter(t=>t.text);const index=state.events.findIndex(x=>x.id===editingId),previous=index>=0?JSON.parse(JSON.stringify(state.events[index])):null; if(index>=0)state.events[index]=e;else state.events.push(e);const persisted=await save();if(!persisted){if(index>=0)state.events[index]=previous;else state.events=state.events.filter(x=>x.id!==e.id);return}$('#editor').close();render();notify('Event saved to the cloud.');
 });
 function detailLine(label,value){return value?`<div class="detail-line"><span>${esc(label)}</span><b>${esc(value)}</b></div>`:''}
 function openDetails(id){detailId=id;const e=state.events.find(e=>e.id===id);if(!e)return;$('#detailBody').innerHTML=`<div class="detail-hero">${badge(e)} <span class="badge status">${esc(e.status)}</span><h3>${esc(e.title)}</h3><p>${esc(range(e))}</p><p>${esc(e.location||'Location to be decided')}</p><p class="tiny">Calendar view: ${esc(viewerRange(e))}</p></div><div class="detail-grid"><div class="detail-item"><h3>People & logistics</h3>${detailLine('Attendees',e.people)}${detailLine('Contact',e.contact)}${detailLine('Booking costs',moneyTotals(e))}${!e.people&&!e.contact&&!moneyTotals(e)?'<p class="muted tiny">No additional details entered.</p>':''}</div><div class="detail-item"><h3>Purpose & notes</h3><p style="white-space:pre-wrap;font-size:12px">${esc(e.notes||'No notes added.')}</p></div></div><div class="section-label">Travel arrangements · ${e.items.length}</div><div class="detail-grid">${e.items.map(it=>`<div class="detail-item"><h3>${labels[it.kind]} <span class="badge status">${esc(it.status)}</span></h3>${schemas[it.kind].map(([key,label,type])=>detailLine(label,type==='datetime-local'&&it[key]?itemTime(it,key,e):it[key])).join('')}</div>`).join('')||'<p class="muted tiny">No travel arrangements added.</p>'}</div><div class="section-label">Preparation checklist · ${openTasks(e)} open</div>${e.tasks.map((t,i)=>`<label class="check-view"><input type="checkbox" data-toggle-task="${i}" ${t.done?'checked':''}><span style="${t.done?'text-decoration:line-through;color:var(--muted)':''}">${esc(t.text)}</span></label>`).join('')||'<p class="muted tiny">No checklist added.</p>'}<p class="footer-note">Flight, transfer, and rental endpoints use their own selected time zones. Blank booking zones inherit the booking default or event start zone. Travel items can fall outside the event’s dates; the calendar displays the overall event range.</p>`;if(!$('#details').open)$('#details').showModal()}
-$('#detailBody').addEventListener('change',async ev=>{if(!ev.target.matches('[data-toggle-task]'))return;const e=state.events.find(x=>x.id===detailId);e.tasks[+ev.target.dataset.toggleTask].done=ev.target.checked;await save();render();openDetails(detailId)});
+$('#detailBody').addEventListener('change',async ev=>{if(!ev.target.matches('[data-toggle-task]'))return;const e=state.events.find(x=>x.id===detailId);const idx=+ev.target.dataset.toggleTask,previous=e.tasks[idx].done;e.tasks[idx].done=ev.target.checked;const persisted=await save();if(!persisted)e.tasks[idx].done=previous;render();openDetails(detailId)});
 $('#editEvent').onclick=()=>{$('#details').close();openEditor(detailId)};
-$('#deleteEvent').onclick=()=>{const e=state.events.find(x=>x.id===detailId);if(!e||!confirm(`Delete "${e.title}" and its travel arrangements?`))return;state.events=state.events.filter(x=>x.id!==detailId);save();$('#details').close();render();notify('Event deleted.')};
+$('#deleteEvent').onclick=async ()=>{const e=state.events.find(x=>x.id===detailId);if(!e||!confirm(`Delete "${e.title}" and its travel arrangements?`))return;const previous=state.events;state.events=state.events.filter(x=>x.id!==detailId);const persisted=await save();if(!persisted){state.events=previous;render();return}$('#details').close();render();notify('Event deleted.')};
 $('#emailThis').onclick=()=>{$('#details').close();showPage('email');$('#emailEvent').value=detailId;generateEmail()};
 function generateEmail(){
  const e=state.events.find(x=>x.id===$('#emailEvent').value);if(!e){notify('Choose an event first.');return}const style=$('#emailStyle').value,recipient=$('#emailRecipient').value.trim()||'Team',sender=$('#emailSender').value.trim();$('#emailSubject').value=`${style==='action'?'Action update':style==='brief'?'Overview':'Itinerary'}: ${e.title} | ${dateLabel(e.start)}`;
@@ -280,9 +276,9 @@ $('#copyEmail').onclick=async()=>{if(!$('#emailBody').value.trim()){notify('Gene
 function downloadBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000)}
 function backup(){downloadBlob(new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),...state},null,2)],{type:'application/json'}),'waypoint-backup-'+dateKey(new Date())+'.json');notify('Backup download started.')}
 $('#backupBtn').onclick=backup;$('#mobileBackup').onclick=backup;$('#restoreBtn').onclick=$('#mobileRestore').onclick=()=>$('#importFile').click();
-$('#importFile').onchange=async ev=>{const file=ev.target.files[0];ev.target.value='';if(!file)return;if(file.size>10*1024*1024){notify('Choose a backup smaller than 10 MB.');return}try{const incoming=validateBackup(JSON.parse(await file.text()));if(!confirm(`Replace this workspace with ${incoming.events.length} plan(s) from the backup? Export your current workspace first if you want to keep it.`))return;state=incoming;const persisted=await save();$('#emailSubject').value='';$('#emailBody').value='';render();notify(persisted?'Workspace restored.':'Workspace restored on this page, but cloud save failed.')}catch(e){notify(e.message||'That file is not a valid Waypoint backup.')}};
-$('#sampleBtn').onclick=async()=>{if(state.events.length&&!confirm('Replace current plans with a sample workspace? Export a backup first to keep them.'))return;state=sampleWorkspace();const ok=await save();render();notify(ok?'Sample workspace loaded.':'Sample workspace loaded on this page, but cloud save failed.')};
-$('#freshBtn').onclick=async()=>{if(!confirm('Remove all sample workspace plans and start empty? Any edits to the sample workspace will also be removed.'))return;state={events:[],demo:false,settings:{calendarZone:viewerZone()}};const ok=await save();$('#emailSubject').value='';$('#emailBody').value='';render();notify(ok?'Your workspace is ready.':'Workspace cleared on this page, but cloud save failed.')};
+$('#importFile').onchange=async ev=>{const file=ev.target.files[0];ev.target.value='';if(!file)return;if(file.size>10*1024*1024){notify('Choose a backup smaller than 10 MB.');return}try{const incoming=validateBackup(JSON.parse(await file.text()));if(!confirm(`Replace this workspace with ${incoming.events.length} plan(s) from the backup? Export your current workspace first if you want to keep it.`))return;const previous=state;state=incoming;const persisted=await save();if(!persisted)state=previous;$('#emailSubject').value='';$('#emailBody').value='';render();notify(persisted?'Workspace restored to the cloud.':'Could not save restored workspace to the cloud.')}catch(e){notify(e.message||'That file is not a valid Waypoint backup.')}};
+$('#sampleBtn').onclick=async ()=>{if(state.events.length&&!confirm('Replace current plans with a sample workspace? Export a backup first to keep them.'))return;const previous=state;state=sampleWorkspace();const persisted=await save();if(!persisted)state=previous;render();if(persisted)notify('Sample workspace saved to the cloud.');};
+$('#freshBtn').onclick=async ()=>{if(!confirm('Remove all sample workspace plans and start empty? Any edits to the sample workspace will also be removed.'))return;const previous=state;state={events:[],demo:false,settings:{calendarZone:localZone}};const persisted=await save();if(!persisted)state=previous;$('#emailSubject').value='';$('#emailBody').value='';render();if(persisted)notify('Your workspace is ready.')};
 /* Dependency-free PDF: one landscape A4 page per month. */
 function pdfAscii(s){return String(s).normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/[–—→]/g,'-').replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[^\x20-\x7E]/g,'?')}
 function pdfEscape(s){return pdfAscii(s).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)')}
@@ -301,6 +297,5 @@ $('#pdfBtn').onclick=()=>{const s=`${month.getFullYear()}-${pad(month.getMonth()
 $('#pdfForm').onsubmit=ev=>{ev.preventDefault();const start=$('#pdfStart').value,end=$('#pdfEnd').value;if(!start||!end||start>end){notify('Choose a valid first and last month.');return}const[y,m]=start.split('-').map(Number),[ey,em]=end.split('-').map(Number),n=(ey-y)*12+em-m+1;if(n>36){notify('Export up to 36 months at a time.');return}const list=Array.from({length:n},(_,i)=>{const d=new Date(y,m-1+i,1,12);return {y:d.getFullYear(),m:d.getMonth()}});try{downloadBlob(buildPDF(list,calendarEvents()),`waypoint-calendar-${start}${start!==end?'-to-'+end:''}.pdf`);$('#pdfDialog').close();notify('PDF download started · one page per month.')}catch(e){notify('The PDF could not be generated. Try a smaller month range.')}};
 document.addEventListener('click',ev=>{const nav=ev.target.closest('[data-page]');if(nav){showPage(nav.dataset.page);return}const go=ev.target.closest('[data-goto]');if(go){showPage(go.dataset.goto);return}const close=ev.target.closest('[data-close]');if(close){document.getElementById(close.dataset.close).close();return}const open=ev.target.closest('[data-open]');if(open){openDetails(open.dataset.open);return}const day=ev.target.closest('[data-day]');if(day){openEditor(null,day.dataset.day);return}const add=ev.target.closest('[data-add]');if(add){addTravelItem(add.dataset.add);return}const remove=ev.target.closest('[data-remove-item]');if(remove){remove.closest('.repeat-card').remove();return}const task=ev.target.closest('[data-remove-task]');if(task)task.closest('.check-row').remove()});
 document.addEventListener('keydown',ev=>{const target=ev.target.closest('.summary-card');if(target&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();openDetails(target.dataset.open)}});
-$('#newBtn').onclick=()=>openEditor();$('#addTask').onclick=()=>addTask();$('#prevMonth').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()-1,1,12);renderCalendar()};$('#nextMonth').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()+1,1,12);renderCalendar()};$('#todayBtn').onclick=()=>{const d=parseDate(wallAt(Date.now(),viewerZone()));month=new Date(d.getFullYear(),d.getMonth(),1,12);renderCalendar()};$('#monthViewBtn').onclick=()=>{calendarMode='month';renderCalendar()};$('#agendaViewBtn').onclick=()=>{calendarMode='agenda';renderCalendar()};['calendarSearch','calendarType'].forEach(id=>$('#'+id).addEventListener('input',renderCalendar));['summarySearch','summaryType','summaryWhen'].forEach(id=>$('#'+id).addEventListener('input',renderSummary));document.addEventListener('visibilitychange',()=>{if(!document.hidden)render()});
-(async()=>{await initWorkspace();state.settings={calendarZone:localZone,...(state.settings||{})};initTimeZones();render()})();
+$('#newBtn').onclick=()=>openEditor();$('#addTask').onclick=()=>addTask();$('#prevMonth').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()-1,1,12);renderCalendar()};$('#nextMonth').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()+1,1,12);renderCalendar()};$('#todayBtn').onclick=()=>{const d=parseDate(wallAt(Date.now(),viewerZone()));month=new Date(d.getFullYear(),d.getMonth(),1,12);renderCalendar()};$('#monthViewBtn').onclick=()=>{calendarMode='month';renderCalendar()};$('#agendaViewBtn').onclick=()=>{calendarMode='agenda';renderCalendar()};['calendarSearch','calendarType'].forEach(id=>$('#'+id).addEventListener('input',renderCalendar));['summarySearch','summaryType','summaryWhen'].forEach(id=>$('#'+id).addEventListener('input',renderSummary));document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadWorkspace().then(()=>render())});initTimeZones();loadWorkspace().then(()=>render());
 </script></body></html>

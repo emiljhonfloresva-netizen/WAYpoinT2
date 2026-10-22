@@ -182,7 +182,7 @@ function validateBackup(raw){
  out.items=(e.items||[]).map(it=>{if(!it||!Object.hasOwn(schemas,it.kind))throw Error('Unknown travel item type.');const o={kind:it.kind,status:['Pending','Confirmed','Cancelled'].includes(it.status)?it.status:'Pending'};schemas[it.kind].forEach(([k,label,type])=>{o[k]=text(it[k]);if(type==='datetime-local'&&o[k]&&!dt(o[k]))throw Error('A travel item contains an invalid date.');if(type==='number'&&o[k]&&(!Number.isFinite(+o[k])||+o[k]<0))throw Error('Invalid travel cost.');});validateItemTimes(o,out);return o;});
  if(e.tasks!==undefined&&!Array.isArray(e.tasks))throw Error('Invalid checklist.');if((e.tasks||[]).length>500)throw Error('Too many tasks in one plan.');out.tasks=(e.tasks||[]).filter(t=>t&&typeof t.text==='string'&&t.text.trim()).map(t=>({text:text(t.text,1000),done:t.done===true}));return out;});return {events,demo:raw.demo===true,settings:{calendarZone:validZone(raw.settings?.calendarZone)?raw.settings.calendarZone:localZone}};
 }
-async function loadWorkspace(){
+async function loadWorkspace(allowMigration=true){
  try{
   const {data,error}=await supabaseClient.from('waypoint_cloud').select('events,settings,demo,updated_at').eq('workspace_key',WORKSPACE_KEY).maybeSingle();
   if(error)throw error;
@@ -190,14 +190,14 @@ async function loadWorkspace(){
    const cloudState=validateBackup({events:data.events||[],settings:data.settings||{},demo:data.demo===true});
    const saved=localStorage.getItem(KEY);
    const cloudIsEmpty=!cloudState.events.length;
-   if(cloudIsEmpty&&saved){
+   if(allowMigration&&cloudIsEmpty&&saved){
     try{
      const migrated=validateBackup(JSON.parse(saved));
      if(migrated.events.length||migrated.demo){
       state=migrated;
       state.settings={calendarZone:localZone,...(state.settings||{})};
       const ok=await save();
-      if(ok)notify('Existing browser workspace migrated to the cloud.');
+      if(ok){localStorage.removeItem(KEY);notify('Existing browser workspace migrated to the cloud.');}
       return;
      }
     }catch(migrationError){
@@ -208,13 +208,13 @@ async function loadWorkspace(){
    state.settings={calendarZone:localZone,...(state.settings||{})};
    return;
   }
-  const saved=localStorage.getItem(KEY);
+  const saved=allowMigration?localStorage.getItem(KEY):null;
   if(saved){
    const migrated=validateBackup(JSON.parse(saved));
    state=migrated;
    state.settings={calendarZone:localZone,...(state.settings||{})};
    const ok=await save();
-   if(ok)notify('Existing browser workspace migrated to the cloud.');
+   if(ok){localStorage.removeItem(KEY);notify('Existing browser workspace migrated to the cloud.');}
    return;
   }
   state={events:[],demo:false,settings:{calendarZone:localZone}};
@@ -224,6 +224,23 @@ async function loadWorkspace(){
   state.settings={calendarZone:localZone,...(state.settings||{})};
   notify('Cloud storage could not be loaded. Check your connection.');
  }
+}
+
+let realtimeChannel=null;
+function setupRealtime(){
+  if(realtimeChannel){try{supabaseClient.removeChannel(realtimeChannel)}catch{}}
+  realtimeChannel=supabaseClient
+    .channel('waypoint-live-workspace')
+    .on('postgres_changes',{event:'UPDATE',schema:'public',table:'waypoint_cloud',filter:`workspace_key=eq.${WORKSPACE_KEY}`},async()=>{
+      const before=JSON.stringify(state.events);
+      await loadWorkspace(false);
+      if(JSON.stringify(state.events)!==before){render();notify('Workspace updated from another device.');}
+      else{render();}
+    })
+    .subscribe((status)=>{
+      if(status==='CHANNEL_ERROR')console.warn('Waypoint Realtime channel error');
+      if(status==='TIMED_OUT')console.warn('Waypoint Realtime timed out');
+    });
 }
 $('#todayLabel').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'});
 function showPage(name){page=name;$$('.page-section').forEach(x=>x.hidden=x.id!==name+'Page');$$('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===name));$('#stats').hidden=name==='email';const titles={overview:['Good plans. Clear days.','Your calendar, your travel, and all the details in between.'],calendar:['See the month ahead.','A little structure for everything on your horizon.'],summary:['Every plan, in perspective.','Bookings, preparation, and the details that keep things moving.'],email:['Keep everyone in the loop.','Turn your itinerary into a clear, ready-to-share email.']};$('#pageTitle').textContent=titles[name][0];$('#pageDescription').textContent=titles[name][1];render()}
@@ -297,5 +314,5 @@ $('#pdfBtn').onclick=()=>{const s=`${month.getFullYear()}-${pad(month.getMonth()
 $('#pdfForm').onsubmit=ev=>{ev.preventDefault();const start=$('#pdfStart').value,end=$('#pdfEnd').value;if(!start||!end||start>end){notify('Choose a valid first and last month.');return}const[y,m]=start.split('-').map(Number),[ey,em]=end.split('-').map(Number),n=(ey-y)*12+em-m+1;if(n>36){notify('Export up to 36 months at a time.');return}const list=Array.from({length:n},(_,i)=>{const d=new Date(y,m-1+i,1,12);return {y:d.getFullYear(),m:d.getMonth()}});try{downloadBlob(buildPDF(list,calendarEvents()),`waypoint-calendar-${start}${start!==end?'-to-'+end:''}.pdf`);$('#pdfDialog').close();notify('PDF download started · one page per month.')}catch(e){notify('The PDF could not be generated. Try a smaller month range.')}};
 document.addEventListener('click',ev=>{const nav=ev.target.closest('[data-page]');if(nav){showPage(nav.dataset.page);return}const go=ev.target.closest('[data-goto]');if(go){showPage(go.dataset.goto);return}const close=ev.target.closest('[data-close]');if(close){document.getElementById(close.dataset.close).close();return}const open=ev.target.closest('[data-open]');if(open){openDetails(open.dataset.open);return}const day=ev.target.closest('[data-day]');if(day){openEditor(null,day.dataset.day);return}const add=ev.target.closest('[data-add]');if(add){addTravelItem(add.dataset.add);return}const remove=ev.target.closest('[data-remove-item]');if(remove){remove.closest('.repeat-card').remove();return}const task=ev.target.closest('[data-remove-task]');if(task)task.closest('.check-row').remove()});
 document.addEventListener('keydown',ev=>{const target=ev.target.closest('.summary-card');if(target&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();openDetails(target.dataset.open)}});
-$('#newBtn').onclick=()=>openEditor();$('#addTask').onclick=()=>addTask();$('#prevMonth').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()-1,1,12);renderCalendar()};$('#nextMonth').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()+1,1,12);renderCalendar()};$('#todayBtn').onclick=()=>{const d=parseDate(wallAt(Date.now(),viewerZone()));month=new Date(d.getFullYear(),d.getMonth(),1,12);renderCalendar()};$('#monthViewBtn').onclick=()=>{calendarMode='month';renderCalendar()};$('#agendaViewBtn').onclick=()=>{calendarMode='agenda';renderCalendar()};['calendarSearch','calendarType'].forEach(id=>$('#'+id).addEventListener('input',renderCalendar));['summarySearch','summaryType','summaryWhen'].forEach(id=>$('#'+id).addEventListener('input',renderSummary));document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadWorkspace().then(()=>render())});initTimeZones();loadWorkspace().then(()=>render());
+$('#newBtn').onclick=()=>openEditor();$('#addTask').onclick=()=>addTask();$('#prevMonth').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()-1,1,12);renderCalendar()};$('#nextMonth').onclick=()=>{month=new Date(month.getFullYear(),month.getMonth()+1,1,12);renderCalendar()};$('#todayBtn').onclick=()=>{const d=parseDate(wallAt(Date.now(),viewerZone()));month=new Date(d.getFullYear(),d.getMonth(),1,12);renderCalendar()};$('#monthViewBtn').onclick=()=>{calendarMode='month';renderCalendar()};$('#agendaViewBtn').onclick=()=>{calendarMode='agenda';renderCalendar()};['calendarSearch','calendarType'].forEach(id=>$('#'+id).addEventListener('input',renderCalendar));['summarySearch','summaryType','summaryWhen'].forEach(id=>$('#'+id).addEventListener('input',renderSummary));document.addEventListener('visibilitychange',()=>{if(!document.hidden)loadWorkspace(false).then(()=>render())});initTimeZones();loadWorkspace(true).then(()=>{render();setupRealtime()});
 </script></body></html>
